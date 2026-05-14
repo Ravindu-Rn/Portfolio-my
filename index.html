@@ -56,6 +56,10 @@
                 </div>
                 <div class="search-dropdown" id="searchDropdown"></div>
             </div>
+            <!-- Login Button -->
+            <button class="nav-login-btn" id="navLoginBtn" onclick="openLoginModal()">
+                <i class="fa-solid fa-user"></i> <span id="navLoginLabel">Login</span>
+            </button>
             <i class="fa-solid fa-bars" onclick="openmenu()"></i>
         </nav>
         <div class="header-text">
@@ -193,6 +197,7 @@
                     <a href="mailto:ravindunawanjana25380@gmail.com" style="color: inherit; text-decoration: none;">ravindunawanjana25380@gmail.com</a>
                 </p>
                 <p><i class="fa-solid fa-phone"></i> 070 326 0330</p>
+                <p><i class="fa-solid fa-location-dot"></i> Warigama, Pelmadulla, Sabaragamuwa Province, Sri Lanka</p>
                 <div class="social-icons">
                     <a href="https://wa.me/qr/43GRJVNB4Z5VM1"><i class="fa-brands fa-whatsapp"></i></a>
                     <a href="https://www.facebook.com/share/1Aq1o8CRQX/"><i class="fa-brands fa-square-facebook"></i></a>
@@ -209,6 +214,14 @@
                 </form>
                 <span id="msg"></span>
             </div>
+        </div>
+        <!-- Location Map -->
+        <div class="contact-map">
+            <iframe
+                src="https://maps.google.com/maps?q=6.625013,80.566164&output=embed"
+                width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade" title="Negombo, Sri Lanka">
+            </iframe>
         </div>
     </div>
     <div class="copyright">
@@ -571,7 +584,7 @@
 <!-- ── Chatbot ── -->
 <script>
 
-const CHAT_API_KEY = 'YOUR_ANTHROPIC_API_KEY_HERE';
+const CHAT_API_KEY = 'Api key';
 
 const CHAT_SYSTEM = `You are a friendly, professional AI assistant on Ravindu's graphic design portfolio website.
 Your role: help visitors learn about Ravindu's services and handle service enquiries.
@@ -772,6 +785,126 @@ function escapeHtml(str) {
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
               .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
+</script>
+
+<!-- ── Login Modal ── -->
+<div class="login-overlay" id="loginOverlay" onclick="handleLoginOverlayClick(event)">
+    <div class="login-modal" id="loginModal">
+        <button class="login-close" onclick="closeLoginModal()" title="Close">&times;</button>
+        <div class="login-avatar"><i class="fa-solid fa-user-shield"></i></div>
+        <h2 class="login-title">Admin Login</h2>
+        <p class="login-subtitle">Sign in to access the admin panel</p>
+        <div class="login-form">
+            <div class="login-input-wrap">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="loginUsername" placeholder="Username" autocomplete="off" onkeydown="loginKeydown(event)">
+            </div>
+            <div class="login-input-wrap">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="loginPassword" placeholder="Password" onkeydown="loginKeydown(event)">
+                <button class="login-eye" onclick="togglePasswordVisibility()" title="Show/hide password" id="eyeBtn">
+                    <i class="fa-solid fa-eye" id="eyeIcon"></i>
+                </button>
+            </div>
+            <p class="login-error" id="loginError"></p>
+            <button class="login-submit-btn" onclick="submitLogin()">
+                <span id="loginBtnText">Sign In</span>
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            </button>
+        </div>
+        
+    </div>
+</div>
+
+<!-- ── Logged-In Toast ── -->
+<div class="login-toast" id="loginToast"></div>
+
+<script>
+// ── Login state ──
+const VALID_USER = 'admin';
+const VALID_PASS = 'ravindu123';
+
+function isLoggedIn() { return localStorage.getItem('rvn_loggedin') === '1'; }
+
+function openLoginModal() {
+    if (isLoggedIn()) { logoutUser(); return; }
+    document.getElementById('loginOverlay').classList.add('active');
+    document.getElementById('loginError').textContent = '';
+    document.getElementById('loginUsername').value = '';
+    document.getElementById('loginPassword').value = '';
+    setTimeout(() => document.getElementById('loginUsername').focus(), 250);
+}
+
+function closeLoginModal() {
+    document.getElementById('loginOverlay').classList.remove('active');
+}
+
+function handleLoginOverlayClick(e) {
+    if (e.target === document.getElementById('loginOverlay')) closeLoginModal();
+}
+
+function togglePasswordVisibility() {
+    const input = document.getElementById('loginPassword');
+    const icon  = document.getElementById('eyeIcon');
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fa-solid fa-eye-slash';
+    } else {
+        input.type = 'password';
+        icon.className = 'fa-solid fa-eye';
+    }
+}
+
+function loginKeydown(e) { if (e.key === 'Enter') submitLogin(); }
+
+function submitLogin() {
+    const u = document.getElementById('loginUsername').value.trim();
+    const p = document.getElementById('loginPassword').value;
+    const err = document.getElementById('loginError');
+
+    if (!u || !p) { err.textContent = 'Please enter both username and password.'; return; }
+    if (u !== VALID_USER || p !== VALID_PASS) {
+        err.textContent = 'Incorrect username or password.';
+        document.getElementById('loginModal').classList.add('shake');
+        setTimeout(() => document.getElementById('loginModal').classList.remove('shake'), 600);
+        return;
+    }
+    localStorage.setItem('rvn_loggedin', '1');
+    closeLoginModal();
+    updateNavLoginBtn();
+    showLoginToast('✅ Welcome back, Admin!');
+}
+
+function logoutUser() {
+    localStorage.removeItem('rvn_loggedin');
+    updateNavLoginBtn();
+    showLoginToast('👋 Logged out successfully.');
+}
+
+function updateNavLoginBtn() {
+    const btn   = document.getElementById('navLoginBtn');
+    const label = document.getElementById('navLoginLabel');
+    if (isLoggedIn()) {
+        label.textContent = 'Logout';
+        btn.classList.add('logged-in');
+    } else {
+        label.textContent = 'Login';
+        btn.classList.remove('logged-in');
+    }
+}
+
+function showLoginToast(msg) {
+    const t = document.getElementById('loginToast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Init on load
+updateNavLoginBtn();
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLoginModal();
+});
 </script>
 
 </body>
