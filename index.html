@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Website</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/8821862631.js" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+
+<!-- ── Theme Toggle ── -->
+<button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+    <i class="fa-solid fa-moon" id="theme-icon"></i>
+</button>
+
+<!-- ── Gallery Modal ── -->
+<div class="gallery-overlay" id="galleryOverlay" onclick="handleOverlayClick(event)">
+    <div class="gallery-header">
+        <h2 id="galleryTitle"></h2>
+        <button class="gallery-close" onclick="closeGallery()" title="Close">&times;</button>
+    </div>
+    <div class="gallery-stage">
+        <button class="gallery-arrow prev" onclick="galleryNav(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <img id="galleryImg" src="" alt="Gallery image">
+        <button class="gallery-arrow next" onclick="galleryNav(1)"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+    <p class="gallery-counter" id="galleryCounter"></p>
+    <div class="gallery-thumbs" id="galleryThumbs"></div>
+</div>
+
+<!-- ── Header ── -->
+<div id="header">
+    <div class="container">
+        <nav>
+            <img src="logo.png" class="logo">
+            <ul id="sidemenu">
+                <li><a href="#header">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">My Work</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
+            </ul>
+            <div class="nav-search-wrap">
+                <div class="nav-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Search…" autocomplete="off"
+                           oninput="handleSearch(this.value)" onfocus="handleSearch(this.value)"
+                           onkeydown="searchKeydown(event)">
+                    <button class="search-clear" id="searchClear" onclick="clearSearch()" title="Clear">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="search-dropdown" id="searchDropdown"></div>
+            </div>
+            <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+        </nav>
+        <div class="header-text">
+            <p>Graphic Designer</p>
+            <h1>Hi, I'm <span>Ravindu</span><br>from Sri Lanka</h1>
+        </div>
+    </div>
+</div>
+
+<!-- ── About ── -->
+<div id="about">
+    <div class="container">
+        <div class="row">
+            <div class="about-col-1">
+                <img src="My Photo 2.jpg">
+            </div>
+            <div class="about-col-2">
+                <h1 class="sub-title">About Me</h1>
+                <p>I am a passionate Graphic Designer live in Sri Lanka, currently
+                 pursuing my studies in Cybersecurity. I specialize in creating
+                 clean, impactful visual identities and professional digital assets.
+                 My goal is to blend technical precision with creative flair.</p>
+                 <div class="tab-titles">
+                    <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
+                    <p class="tab-links" onclick="opentab('experience')">Experience</p>
+                    <p class="tab-links" onclick="opentab('education')">Education</p>
+                 </div>
+                 <div class="tab-contents active-tab" id="skills">
+                    <ul>
+                        <li><span>Graphic Design</span><br>Social media posts<br>Banner Design<br>Flyers and poster design</li>
+                        <li><span>Video Editing</span><br>Short video editing</li>
+                    </ul>
+                 </div>
+                 <div class="tab-contents" id="experience">
+                    <ul>
+                        <li><span>2024-Current</span><br>Graphic designer at ITLAB Computers</li>
+                        <li><span>2025-Current</span><br>Freelancing Graphic designer</li>
+                    </ul>
+                 </div>
+                 <div class="tab-contents" id="education">
+                    <ul>
+                        <li><span>2024</span><br>Graphic design Course at RAM Studios</li>
+                        <li><span>2025-Current</span><br>Cyber Security undergraduate at ICBT campus</li>
+                    </ul>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Services ── -->
+<div id="services">
+    <div class="container">
+        <h1 class="sub-title">My Services</h1>
+        <div class="services-list">
+            <div>
+                <h2>Social Media Post Design</h2>
+                <p><br>Clean, modern, and purposeful. I design social media content that strips away
+                    the noise to focus on what matters: your message. My approach blends contemporary
+                    typography with striking imagery to ensure your brand maintains a premium and consistent
+                    presence across every digital platform.</p>
+                
+            </div>
+            <div>
+                <h2>Banners, Posters and Flyers Design</h2>
+                <p><br>Transforming ideas into high visibility marketing tools. Whether it's a large-scale outdoor banner,
+                    a promotional flyer, or a sleek event poster, I design with a focus on bold typography and clear call-to-actions.
+                    My goal is to ensure your message isn't just seen, but remembered.</p>
+                
+            </div>
+            <div>
+                <h2>Short Video Editing</h2>
+                <p><br>Elevate your digital presence with professional short-form video editing. I specialize in creating polished,
+                    brand-consistent vertical videos that look as good as they perform. From custom motion graphics to on-brand captions,
+                    every second reinforces your professional identity.</p>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Portfolio ── -->
+<div id="portfolio">
+    <div class="container">
+        <h1 class="sub-title">My Work</h1>
+        <div class="work-list">
+
+            <div class="work">
+                <img src="work/ITLAB/1.jpg">
+                <div class="layer">
+                    <h3>ITLAB Computers</h3>
+                    <p>Social media posts for ITLAB Computers.<br>A leading computer shop in Rathnapura district.</p>
+                    <a href="#" onclick="openGallery('ITLAB Computers', galleryData.itlab); return false;">See more</a>
+                </div>
+            </div>
+
+            <div class="work">
+                <img src="Work/Anyon lanka/5.jpg">
+                <div class="layer">
+                    <h3>Anyon Lanka Pvt Ltd.</h3>
+                    <p>Social media posts for Anyon Lanka (Pvt) Ltd.<br>Foreign education and consultancy service.</p>
+                    <a href="#" onclick="openGallery('Anyon Lanka Pvt Ltd.', galleryData.anyon); return false;">See more</a>
+                </div>
+            </div>
+
+            <div class="work">
+                <img src="Work/Curry pot/3.jpg">
+                <div class="layer">
+                    <h3>Daeso Curry Pot</h3>
+                    <p>Social media posts for Daeso Curry Pot.<br>A restaurant in South Korea serving Sri Lankan food.</p>
+                    <a href="#" onclick="openGallery('Daeso Curry Pot', galleryData.currypot); return false;">See more</a>
+                </div>
+            </div>
+
+            <div class="work">
+                <img src="Work/Thejan/1.jpg">
+                <div class="layer">
+                    <h3>Social media posts for Individuals</h3>
+                    <p>Social media posts for Other Individuals.</p>
+                    <a href="#" onclick="openGallery('Individual Projects', galleryData.thejan); return false;">See more</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ── Contact ── -->
+<div id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="contact-left">
+                <h1 class="sub-title">Contact me</h1>
+                <p><i class="fa-solid fa-envelope"></i>
+                    <a href="mailto:ravindunawanjana25380@gmail.com" style="color: inherit; text-decoration: none;">ravindunawanjana25380@gmail.com</a>
+                </p>
+                <p><i class="fa-solid fa-phone"></i> 070 326 0330</p>
+                <div class="social-icons">
+                    <a href="https://wa.me/qr/43GRJVNB4Z5VM1"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://www.facebook.com/share/1Aq1o8CRQX/"><i class="fa-brands fa-square-facebook"></i></a>
+                    <a href="https://www.instagram.com/r_a_v_i_n_d_u___n_?igsh=MXduczg1dGZ6ODNibg=="><i class="fa-brands fa-instagram"></i></a>
+                </div>
+                <a href="resume_meme_2.png" download class="btn btn2"><i class="fa-solid fa-download"></i> Download CV</a>
+            </div>
+            <div class="contact-right">
+                <form name="submit-to-google-sheet">
+                    <input type="text" name="Name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+                    <button type="submit" class="btn btn3">Submit</button>
+                </form>
+                <span id="msg"></span>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>Copyright © Ravindu.</p>
+    </div>
+</div>
+
+<a href="#" class="top-btn"><i class="fa-solid fa-arrow-up"></i></a>
+
+<!-- ── Chatbot ── -->
+<button class="chat-fab" id="chatFab" onclick="toggleChat()" title="Chat with us">
+    <i class="fa-solid fa-comment-dots"></i>
+    <i class="fa-solid fa-xmark"></i>
+    <span class="chat-badge" id="chatBadge"></span>
+</button>
+
+<div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+        <div class="chat-header-avatar">R</div>
+        <div class="chat-header-info">
+            <span class="chat-header-name">Ravindu's Assistant</span>
+            <span class="chat-header-status">
+                <span class="chat-status-dot"></span> Online
+            </span>
+        </div>
+        <button class="chat-header-close" onclick="toggleChat()" title="Close">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-chips"    id="chatChips"></div>
+    <div class="chat-input-row">
+        <input type="text" id="chatInput" placeholder="Type a message…"
+               onkeydown="chatKeydown(event)" autocomplete="off" />
+        <button class="chat-send" onclick="sendChatMessage()">
+            <i class="fa-solid fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+<!-- ================================================================
+     SCRIPTS
+================================================================ -->
+
+<!-- Gallery -->
+<script>
+    const galleryData = {
+    itlab: [
+            "work/ITLAB/1.jpg",
+            "work/ITLAB/2.jpg",
+            "work/ITLAB/3.jpg",
+            "work/ITLAB/4.jpg",
+            "work/ITLAB/Posify.jpg",
+            "work/ITLAB/Posify 2.jpg",
+            "work/ITLAB/Posify 3.jpg",
+            "work/ITLAB/Posify 4.jpg",
+            "work/ITLAB/20k fb.jpg",
+        ],
+        anyon: [
+            "Work/Anyon lanka/1.jpg",
+            "Work/Anyon lanka/2.jpg",
+            "Work/Anyon lanka/3.jpg",
+            "Work/Anyon lanka/4.jpg",
+            "Work/Anyon lanka/5.jpg",
+            "Work/Anyon lanka/6.jpg",
+            "Work/Anyon lanka/7.jpg",
+            "Work/Anyon lanka/8.jpg",
+            "Work/Anyon lanka/9.jpg",
+            "Work/Anyon lanka/10.jpg",
+            "Work/Anyon lanka/11.jpg",
+            "Work/Anyon lanka/12.jpg",
+            "Work/Anyon lanka/13.jpg",
+            "Work/Anyon lanka/14.jpg",
+            "Work/Anyon lanka/15.jpg",
+        ],
+        currypot: [
+            "Work/Curry pot/1.jpg",
+            "Work/Curry pot/2.jpg",
+            "Work/Curry pot/3.jpg",
+            "Work/Curry pot/4.jpg",
+            "Work/Curry pot/5.jpg",
+        ],
+        thejan: [
+            "Work/Thejan/1.jpg",
+            "Work/Thejan/2.jpg",
+            "Work/Thejan/3.jpg",
+
+        ]
+    };
+
+    let currentImages = [];
+    let currentIndex  = 0;
+
+    function openGallery(title, images) {
+        currentImages = images;
+        currentIndex  = 0;
+        document.getElementById('galleryTitle').textContent = title;
+        buildThumbs();
+        showImage(0);
+        document.getElementById('galleryOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeGallery() {
+        document.getElementById('galleryOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function handleOverlayClick(e) {
+        if (e.target === document.getElementById('galleryOverlay')) closeGallery();
+    }
+
+    function showImage(index) {
+        const img = document.getElementById('galleryImg');
+        img.classList.add('fade');
+        setTimeout(() => {
+            currentIndex = (index + currentImages.length) % currentImages.length;
+            img.src = currentImages[currentIndex];
+            img.classList.remove('fade');
+            document.getElementById('galleryCounter').textContent =
+                (currentIndex + 1) + ' / ' + currentImages.length;
+            updateActiveThumbs();
+        }, 150);
+    }
+
+    function galleryNav(dir) { showImage(currentIndex + dir); }
+
+    function buildThumbs() {
+        const strip = document.getElementById('galleryThumbs');
+        strip.innerHTML = '';
+        currentImages.forEach((src, i) => {
+            const thumb = document.createElement('img');
+            thumb.src = src;
+            thumb.alt = 'Thumbnail ' + (i + 1);
+            thumb.onclick = () => showImage(i);
+            if (i === 0) thumb.classList.add('active-thumb');
+            strip.appendChild(thumb);
+        });
+    }
+
+    function updateActiveThumbs() {
+        document.querySelectorAll('.gallery-thumbs img').forEach((t, i) => {
+            t.classList.toggle('active-thumb', i === currentIndex);
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        const overlay = document.getElementById('galleryOverlay');
+        if (!overlay.classList.contains('active')) return;
+        if (e.key === 'Escape')     closeGallery();
+        if (e.key === 'ArrowRight') galleryNav(1);
+        if (e.key === 'ArrowLeft')  galleryNav(-1);
+    });
+</script>
+
+<!-- Dark / Light Mode -->
+<script>
+    function toggleTheme() {
+        const isLight = document.body.classList.toggle('light-mode');
+        document.getElementById('theme-icon').className =
+            isLight ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    }
+
+    (function () {
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-mode');
+            document.getElementById('theme-icon').className = 'fa-solid fa-sun';
+        }
+    })();
+</script>
+
+<!-- Tabs -->
+<script>
+    var tablinks    = document.getElementsByClassName("tab-links");
+    var tabcontents = document.getElementsByClassName("tab-contents");
+    function opentab(tabname) {
+        for (tablink of tablinks)       tablink.classList.remove("active-link");
+        for (tabcontent of tabcontents) tabcontent.classList.remove("active-tab");
+        event.currentTarget.classList.add("active-link");
+        document.getElementById(tabname).classList.add("active-tab");
+    }
+</script>
+
+<!-- Scroll-to-top -->
+<script>
+    window.onscroll = function () {
+        var topBtn = document.querySelector(".top-btn");
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
+            topBtn.classList.add("show");
+        } else {
+            topBtn.classList.remove("show");
+        }
+    };
+</script>
+
+<!-- Mobile menu -->
+<script>
+    var sidemenu = document.getElementById("sidemenu");
+    function openmenu()  { sidemenu.style.right = "0"; }
+    function closemenu() { sidemenu.style.right = "-220px"; }
+</script>
+
+<!-- Contact form -->
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxCXppeqqp0Ylab3iEZUcBDWxlpbeOZMCKbDrpObeWl9iR_Tt3prBtX-V6MOgSpQPCm_g/exec'
+    const form = document.forms['submit-to-google-sheet'];
+    const msg  = document.getElementById("msg");
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+            .then(response => response.json())
+            .then(response => {
+                msg.innerHTML = "Your Message has been received!";
+                setTimeout(() => { msg.innerHTML = ""; }, 5000);
+                form.reset();
+            })
+            .catch(error => console.error('Error!', error.message));
+    });
+</script>
+
+<!-- Search -->
+<script>
+    const searchIndex = [
+        { label: 'Home',                   section: '#header',    keywords: 'home ravindu graphic designer sri lanka' },
+        { label: 'About Me',               section: '#about',     keywords: 'about me ravindu bio profile' },
+        { label: 'Skills – Graphic Design',section: '#about',     keywords: 'skills graphic design social media banner flyer poster', tab: 'skills' },
+        { label: 'Skills – Video Editing', section: '#about',     keywords: 'skills video editing short reels', tab: 'skills' },
+        { label: 'Experience – ITLAB',     section: '#about',     keywords: 'experience itlab computers 2024', tab: 'experience' },
+        { label: 'Experience – Freelance', section: '#about',     keywords: 'experience freelancing 2025', tab: 'experience' },
+        { label: 'Education – RAM Studios',section: '#about',     keywords: 'education graphic design course ram studios 2024', tab: 'education' },
+        { label: 'Education – ICBT',       section: '#about',     keywords: 'education cybersecurity undergraduate icbt campus 2025', tab: 'education' },
+        { label: 'Services',               section: '#services',  keywords: 'services what i do' },
+        { label: 'Social Media Post Design',section: '#services', keywords: 'social media post design typography brand digital platform' },
+        { label: 'Banners, Posters & Flyers',section: '#services',keywords: 'banner poster flyer marketing print outdoor' },
+        { label: 'Short Video Editing',    section: '#services',  keywords: 'video editing short form reels vertical motion graphics captions' },
+        { label: 'My Work / Portfolio',    section: '#portfolio', keywords: 'portfolio work projects' },
+        { label: 'Project – ITLAB Computers',section: '#portfolio',keywords: 'itlab computers rathnapura social media' },
+        { label: 'Project – Anyon Lanka',  section: '#portfolio', keywords: 'anyon lanka foreign education consultancy' },
+        { label: 'Project – Daeso Curry Pot',section: '#portfolio',keywords: 'daeso curry pot restaurant south korea sri lankan food' },
+        { label: 'Project – Individual Posts',section:'#portfolio',keywords: 'individual personal social media' },
+        { label: 'Contact',                section: '#contact',   keywords: 'contact email phone whatsapp facebook instagram message' },
+        { label: 'Download CV',            section: '#contact',   keywords: 'cv resume download' },
+    ];
+
+    let activeResultIndex = -1;
+
+    function handleSearch(query) {
+        const dropdown = document.getElementById('searchDropdown');
+        const clearBtn = document.getElementById('searchClear');
+        const q = query.trim().toLowerCase();
+
+        clearBtn.style.display = q ? 'flex' : 'none';
+        activeResultIndex = -1;
+
+        if (!q) { dropdown.classList.remove('active'); return; }
+
+        const results = searchIndex.filter(item =>
+            item.keywords.includes(q) || item.label.toLowerCase().includes(q)
+        );
+
+        if (!results.length) {
+            dropdown.innerHTML = '<div class="search-no-result">No results found</div>';
+            dropdown.classList.add('active');
+            return;
+        }
+
+        dropdown.innerHTML = results.map((r, i) =>
+            `<div class="search-result-item" data-index="${i}"
+                  onmousedown="goToResult(${i})"
+                  onmouseover="setActive(${i})">
+                <i class="fa-solid fa-arrow-right search-result-icon"></i>
+                <span>${highlight(r.label, q)}</span>
+             </div>`
+        ).join('');
+
+        dropdown._results = results;
+        dropdown.classList.add('active');
+    }
+
+    function highlight(text, q) {
+        const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        return text.replace(re, '<mark>$1</mark>');
+    }
+
+    function goToResult(i) {
+        const dropdown = document.getElementById('searchDropdown');
+        const item = dropdown._results[i];
+        if (!item) return;
+        closeDropdown();
+        document.getElementById('searchInput').value = '';
+        document.getElementById('searchClear').style.display = 'none';
+
+        if (item.tab) {
+            // activate the right tab first
+            document.querySelectorAll('.tab-links').forEach(l => l.classList.remove('active-link'));
+            document.querySelectorAll('.tab-contents').forEach(c => c.classList.remove('active-tab'));
+            const tabEl = document.getElementById(item.tab);
+            if (tabEl) tabEl.classList.add('active-tab');
+            const tabLink = [...document.querySelectorAll('.tab-links')]
+                .find(l => l.getAttribute('onclick')?.includes(item.tab));
+            if (tabLink) tabLink.classList.add('active-link');
+        }
+
+        const target = document.querySelector(item.section);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // flash highlight
+        target.classList.add('search-highlight');
+        setTimeout(() => target.classList.remove('search-highlight'), 1500);
+    }
+
+    function setActive(i) {
+        activeResultIndex = i;
+        document.querySelectorAll('.search-result-item').forEach((el, idx) => {
+            el.classList.toggle('keyboard-active', idx === i);
+        });
+    }
+
+    function searchKeydown(e) {
+        const dropdown = document.getElementById('searchDropdown');
+        const items = dropdown.querySelectorAll('.search-result-item');
+        if (!items.length) return;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            activeResultIndex = Math.min(activeResultIndex + 1, items.length - 1);
+            setActive(activeResultIndex);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            activeResultIndex = Math.max(activeResultIndex - 1, 0);
+            setActive(activeResultIndex);
+        } else if (e.key === 'Enter' && activeResultIndex >= 0) {
+            e.preventDefault();
+            goToResult(activeResultIndex);
+        } else if (e.key === 'Escape') {
+            closeDropdown();
+        }
+    }
+
+    function clearSearch() {
+        const input = document.getElementById('searchInput');
+        input.value = '';
+        input.focus();
+        document.getElementById('searchClear').style.display = 'none';
+        closeDropdown();
+    }
+
+    function closeDropdown() {
+        document.getElementById('searchDropdown').classList.remove('active');
+        activeResultIndex = -1;
+    }
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-search-wrap')) closeDropdown();
+    });
+</script>
+
+<!-- ── Chatbot ── -->
+<script>
+// ─────────────────────────────────────────────
+//  CONFIGURATION
+//  Replace the placeholder with your Anthropic
+//  API key. For production use a backend proxy
+//  so the key is never exposed to the browser.
+// ─────────────────────────────────────────────
+const CHAT_API_KEY = 'YOUR_ANTHROPIC_API_KEY_HERE';
+
+const CHAT_SYSTEM = `You are a friendly, professional AI assistant on Ravindu's graphic design portfolio website.
+Your role: help visitors learn about Ravindu's services and handle service enquiries.
+
+About Ravindu:
+- Full name: Ravindu Nawanjana
+- Profession: Graphic Designer based in Sri Lanka
+- Currently studying Cyber Security at ICBT Campus (2025–present)
+- Completed a Graphic Design course at RAM Studios (2024)
+
+Work Experience:
+- Graphic Designer at ITLAB Computers, Rathnapura (2024–present)
+- Freelance Graphic Designer (2025–present)
+
+Services offered:
+1. Social Media Post Design — clean, modern, brand-consistent content for digital platforms
+2. Banners, Posters & Flyers Design — high-visibility print and digital marketing materials
+3. Short Video Editing — professional short-form vertical videos with motion graphics and captions
+
+Portfolio projects:
+- ITLAB Computers: social media posts for a leading computer shop in Rathnapura district
+- Anyon Lanka Pvt Ltd: social media for a foreign education & consultancy service
+- Daeso Curry Pot: social media for a Sri Lankan restaurant in South Korea
+- Individual Projects: personal social media posts for individuals
+
+Contact details:
+- Email: ravindunawanjana25380@gmail.com
+- Phone: 070 326 0330
+- WhatsApp: available (preferred for quick replies)
+- Facebook & Instagram: available
+
+Rules:
+- Keep replies concise — 2 to 4 sentences max unless the user asks for details.
+- Never invent prices or turnaround times; say Ravindu will discuss specifics directly.
+- For enquiries: warmly collect the visitor's name and which service they're interested in, then invite them to fill the contact form on the page or message on WhatsApp.
+- Always sound warm, confident, and professional.
+- If asked something outside your knowledge, say you'll pass the question to Ravindu.`;
+
+// quick-reply chips shown on open
+const INITIAL_CHIPS = [
+    'What services do you offer?',
+    'Can I see your portfolio?',
+    'How do I get a quote?',
+    'How can I contact Ravindu?',
+];
+
+let chatHistory  = [];
+let chatIsOpen   = false;
+let chatGreeted  = false;
+
+/* ── Toggle open / close ── */
+function toggleChat() {
+    chatIsOpen = !chatIsOpen;
+    document.getElementById('chatFab').classList.toggle('open', chatIsOpen);
+    document.getElementById('chatWindow').classList.toggle('active', chatIsOpen);
+
+    if (chatIsOpen) {
+        // remove badge
+        document.getElementById('chatBadge').style.display = 'none';
+        // first open → show greeting
+        if (!chatGreeted) {
+            chatGreeted = true;
+            appendBotMessage("👋 Hi! I'm Ravindu's assistant. I can tell you about his graphic design services, share portfolio details, or help you send an enquiry. How can I help?");
+            renderChips(INITIAL_CHIPS);
+        }
+        setTimeout(() => document.getElementById('chatInput').focus(), 300);
+    }
+}
+
+/* ── Send a message ── */
+async function sendChatMessage(text) {
+    const input = document.getElementById('chatInput');
+    const userText = (text || input.value).trim();
+    if (!userText) return;
+
+    input.value = '';
+    clearChips();
+    appendUserMessage(userText);
+
+    chatHistory.push({ role: 'user', content: userText });
+
+    const typing = showTyping();
+
+    try {
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': CHAT_API_KEY,
+                'anthropic-version': '2023-06-01',
+                'anthropic-dangerous-direct-browser-access': 'true',
+            },
+            body: JSON.stringify({
+                model: 'claude-haiku-4-5-20251001',
+                max_tokens: 400,
+                system: CHAT_SYSTEM,
+                messages: chatHistory,
+            }),
+        });
+
+        const data = await res.json();
+        console.log('Chatbot API response:', data);   // useful for debugging
+
+        if (!res.ok) {
+            // API returned an error (e.g. wrong key, quota exceeded)
+            const errMsg = data?.error?.message || `API error ${res.status}`;
+            console.error('Chatbot API error:', errMsg);
+            removeTyping(typing);
+            appendBotMessage(`⚠️ ${errMsg} — please use the contact form or WhatsApp.`);
+            return;
+        }
+
+        const reply = data?.content?.[0]?.text;
+        if (!reply) {
+            console.error('Unexpected response shape:', data);
+            removeTyping(typing);
+            appendBotMessage("⚠️ Unexpected response from the assistant. Please try again.");
+            return;
+        }
+
+        chatHistory.push({ role: 'assistant', content: reply });
+        removeTyping(typing);
+        appendBotMessage(reply);
+
+        // offer enquiry chips if they seem interested
+        if (/quote|price|cost|hire|book|enquir|contact|whatsapp/i.test(userText)) {
+            renderChips(['Send an enquiry', 'What\'s your email?', 'Do you have WhatsApp?']);
+        }
+
+    } catch (err) {
+        removeTyping(typing);
+        appendBotMessage("⚠️ Could not reach the assistant — check your internet connection or use the contact form below.");
+        console.error('Chatbot fetch error:', err);
+    }
+}
+
+function chatKeydown(e) {
+    if (e.key === 'Enter') sendChatMessage();
+}
+
+/* ── DOM helpers ── */
+function appendUserMessage(text) {
+    const wrap = document.getElementById('chatMessages');
+    wrap.insertAdjacentHTML('beforeend', `
+        <div class="chat-msg user">
+            <div class="msg-bubble">${escapeHtml(text)}</div>
+        </div>`);
+    scrollChat();
+}
+
+function appendBotMessage(text) {
+    const wrap = document.getElementById('chatMessages');
+    // basic markdown: **bold** and links
+    const html = escapeHtml(text)
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+    wrap.insertAdjacentHTML('beforeend', `
+        <div class="chat-msg bot">
+            <div class="msg-avatar">R</div>
+            <div class="msg-bubble">${html}</div>
+        </div>`);
+    scrollChat();
+}
+
+function showTyping() {
+    const wrap = document.getElementById('chatMessages');
+    const el = document.createElement('div');
+    el.className = 'chat-msg bot typing-wrap';
+    el.innerHTML = `<div class="msg-avatar">R</div>
+        <div class="typing-indicator">
+            <span></span><span></span><span></span>
+        </div>`;
+    wrap.appendChild(el);
+    scrollChat();
+    return el;
+}
+function removeTyping(el) { el && el.remove(); }
+
+function renderChips(chips) {
+    const container = document.getElementById('chatChips');
+    container.innerHTML = chips.map(c =>
+        `<button class="chip" onclick="chipClick(this, '${c.replace(/'/g, "\\'")}')">${c}</button>`
+    ).join('');
+}
+function clearChips() { document.getElementById('chatChips').innerHTML = ''; }
+
+function chipClick(el, text) {
+    el.closest('.chat-chips').innerHTML = '';
+    sendChatMessage(text);
+}
+
+function scrollChat() {
+    const wrap = document.getElementById('chatMessages');
+    wrap.scrollTop = wrap.scrollHeight;
+}
+
+function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+              .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+</script>
+
+</body>
+</html>
